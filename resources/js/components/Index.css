@@ -2,3 +2,32 @@
     font-size: 28px;
     text-decoration: none;
 }
+.details{
+    padding:2rem;
+}
+.status-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.status-box-head{
+    font-size: 22px;
+    color: teal;
+    background-color: snow;
+    border-radius: 5px;
+    border:1px dashed grey;
+    margin-bottom: 10px;
+    width: 19%;
+
+}
+.status-box-item{
+    height: 500px;
+    width: 19%;
+    overflow-y: auto;
+    background-color: snow;
+    border-radius: 5px;
+    border:1px dashed grey;
+}
+.status-box-item:hover {
+    background-color: rgb(8, 66, 88);
+}

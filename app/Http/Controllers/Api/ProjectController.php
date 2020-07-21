@@ -14,15 +14,15 @@ class ProjectController extends Controller
     public function index()
     {
         if (Auth::user()->role === 'manager') {
-            return response()->json(Project::where('user_id', Auth::user()->id)->with('client')->get());
+            return response()->json(Project::where('user_id', Auth::user()->id)->with('client')->with('user')->get());
         }
 
         if (Auth::user()->role === 'developer') {
-            return response()->json(User::where('id', Auth::user()->id)->with('project')->with('client')->first()->project);
+            return response()->json(User::where('id', Auth::user()->id)->with('project.user')->with('client')->first()->project);
         }
         
         if (Auth::user()->role === 'client') {
-            return response()->json(Project::where('client_id', Auth::user()->id)->with('client')->get());
+            return response()->json(Project::where('client_id', Auth::user()->id)->with('client')->with('user')->get());
         }
     }
 

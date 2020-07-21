@@ -24,6 +24,8 @@ import {
     Container
 } from "reactstrap";
 import CreateProject from "./Project/CreateProject";
+import ViewProject from "./Project/ViewProject";
+import ProjectDetails from "./Project/ProjectDetails";
 
 const AuthComponent = props => {
     const { isAuthenticated } = props.auth;
@@ -42,6 +44,8 @@ const AuthComponent = props => {
         <>
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/create-project" component={CreateProject} />
+            <Route path="/view-projects" component={ViewProject} />
+            <Route path="/project-details/:id" component={ProjectDetails} />
         </>
     );
 };

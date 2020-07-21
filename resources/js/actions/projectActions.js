@@ -9,10 +9,11 @@ import {
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorActions";
 
-export const getProjects = () => dispatch => {
+export const getProjects = () => (dispatch, getState) => {
+    // alert('called')
     dispatch(setProjectLoading());
     axios
-        .get("/api/projects")
+        .get("/api/projects",tokenConfig(getState))
         .then(res =>
             dispatch({
                 type: GET_PROJECTS,
@@ -34,6 +35,7 @@ export const addProject = (project, id) => (dispatch, getState) => {
                     type: ADD_PROJECT,
                     payload: res.data
                 })
+                
             )
             .catch(err =>
                 dispatch(returnErrors(err.response.data, err.response.status))
@@ -41,6 +43,7 @@ export const addProject = (project, id) => (dispatch, getState) => {
     } else {
         axios
             .post("/api/projects", project, tokenConfig(getState))
+<<<<<<< HEAD
             .then(res => {
                 dispatch({
                     type: ADD_PROJECT,
@@ -48,6 +51,26 @@ export const addProject = (project, id) => (dispatch, getState) => {
                 });
                 alert("Project has been added");
             })
+=======
+            .then(res =>{
+                    dispatch({
+                        type: ADD_PROJECT,
+                        payload: res.data
+                    })
+                    axios
+                    .get("/api/projects")
+                    .then(res =>
+                        dispatch({
+                            type: GET_PROJECTS,
+                            payload: res.data
+                        })
+                    )
+                    .catch(err =>
+                        dispatch(returnErrors(err.response.data, err.response.status))
+                    );
+                }
+            )
+>>>>>>> 597b35129d4ba62bb255342dd8557638cdfdac13
             .catch(err =>
                 dispatch(returnErrors(err.response.data, err.response.status))
             );

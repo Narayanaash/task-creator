@@ -41,12 +41,13 @@ export const addProject = (project, id) => (dispatch, getState) => {
     } else {
         axios
             .post("/api/projects", project, tokenConfig(getState))
-            .then(res =>
+            .then(res => {
                 dispatch({
                     type: ADD_PROJECT,
                     payload: res.data
-                })
-            )
+                });
+                alert("Project has been added");
+            })
             .catch(err =>
                 dispatch(returnErrors(err.response.data, err.response.status))
             );

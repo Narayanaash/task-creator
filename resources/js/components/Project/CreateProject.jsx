@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import PropsTypes from "prop-types";
 import { addProject } from "../../actions/projectActions";
 import { getClients } from "../../actions/clientActions";
@@ -89,7 +90,7 @@ class CreateProject extends Component {
                                 <FormGroup>
                                     <Label>Client</Label>
                                     <select
-                                        name="client"
+                                        name="client_id"
                                         id="client"
                                         value={this.state.client_id}
                                         onChange={this.inputHandler}
@@ -120,6 +121,13 @@ class CreateProject extends Component {
                                             Submit
                                         </Button>
                                     )}
+                                    <CardText className="text-center">
+                                        <small className="text-muted">
+                                            <Link to="/view-projects">
+                                                View all projects
+                                            </Link>
+                                        </small>
+                                    </CardText>
                                 </FormGroup>
                             </Col>
                         </Form>

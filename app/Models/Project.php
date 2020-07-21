@@ -23,7 +23,7 @@ class Project extends Model
     }
 
     protected $fillable = [
-        'name', 'user_id',
+        'name', 'user_id', 'client_id',
     ];
     
 }

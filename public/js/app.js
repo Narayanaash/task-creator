@@ -86200,6 +86200,40 @@ var getClients = function getClients() {
 
 /***/ }),
 
+/***/ "./resources/js/actions/developerActions.js":
+/*!**************************************************!*\
+  !*** ./resources/js/actions/developerActions.js ***!
+  \**************************************************/
+/*! exports provided: getDevelopers */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDevelopers", function() { return getDevelopers; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "./resources/js/actions/types.js");
+/* harmony import */ var _authActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./authActions */ "./resources/js/actions/authActions.js");
+/* harmony import */ var _errorActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./errorActions */ "./resources/js/actions/errorActions.js");
+
+
+
+
+var getDevelopers = function getDevelopers(id) {
+  return function (dispatch, getState) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/projects/" + id + "/developers", Object(_authActions__WEBPACK_IMPORTED_MODULE_2__["tokenConfig"])(getState)).then(function (res) {
+      return dispatch({
+        type: _types__WEBPACK_IMPORTED_MODULE_1__["GET_DEVELOPERS"],
+        payload: res.data
+      });
+    })["catch"](function (err) {
+      return dispatch(Object(_errorActions__WEBPACK_IMPORTED_MODULE_3__["returnErrors"])(err.response.data, err.response.status));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./resources/js/actions/errorActions.js":
 /*!**********************************************!*\
   !*** ./resources/js/actions/errorActions.js ***!
@@ -86428,7 +86462,7 @@ var setTaskUploading = function setTaskUploading() {
 /*!***************************************!*\
   !*** ./resources/js/actions/types.js ***!
   \***************************************/
-/*! exports provided: GET_PROJECTS, ADD_PROJECT, DELETE_PROJECT, PROJECTS_LOADING, PROJECT_UPLOADING, USER_LOADING, USER_LOADED, SIGNUP_PROGRESS, LOGIN_PROGRESS, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL, GET_ERRORS, CLEAR_ERRORS, GET_CLIENTS, GET_TASKS, ADD_TASK, DELETE_TASK, TASKS_LOADING, TASK_UPLOADING */
+/*! exports provided: GET_PROJECTS, ADD_PROJECT, DELETE_PROJECT, PROJECTS_LOADING, PROJECT_UPLOADING, USER_LOADING, USER_LOADED, SIGNUP_PROGRESS, LOGIN_PROGRESS, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL, GET_ERRORS, CLEAR_ERRORS, GET_CLIENTS, GET_TASKS, ADD_TASK, DELETE_TASK, TASKS_LOADING, TASK_UPLOADING, GET_DEVELOPERS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -86456,6 +86490,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_TASK", function() { return DELETE_TASK; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TASKS_LOADING", function() { return TASKS_LOADING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TASK_UPLOADING", function() { return TASK_UPLOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_DEVELOPERS", function() { return GET_DEVELOPERS; });
 var GET_PROJECTS = "GET_PROJECTS";
 var ADD_PROJECT = "ADD_PROJECT";
 var DELETE_PROJECT = "DELETE_PROJECT";
@@ -86479,6 +86514,7 @@ var ADD_TASK = "ADD_TASK";
 var DELETE_TASK = "DELETE_TASK";
 var TASKS_LOADING = "TASKS_LOADING";
 var TASK_UPLOADING = "TASK_UPLOADING";
+var GET_DEVELOPERS = "GET_DEVELOPERS";
 
 /***/ }),
 
@@ -87527,7 +87563,9 @@ var ProjectDetails = /*#__PURE__*/function (_Component) {
         return project.id == _this2.props.match.params.id;
       }).map(function (project) {
         return project.name;
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TaskModal__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TaskModal__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        id: this.props.match.params.id
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
         className: "py-2"
       }, "All Tasks"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: " status-box"
@@ -87535,7 +87573,7 @@ var ProjectDetails = /*#__PURE__*/function (_Component) {
         className: "status-box-head"
       }, "To Estimate "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "status-box-head"
-      }, "To Todo "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "To Do "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "status-box-head"
       }, "In Progress "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "status-box-head"
@@ -87637,7 +87675,11 @@ var mapStateToProps = function mapStateToProps(state) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _actions_developerActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/developerActions */ "./resources/js/actions/developerActions.js");
+/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -87665,6 +87707,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+
+
 var TaskModal = /*#__PURE__*/function (_Component) {
   _inherits(TaskModal, _Component);
 
@@ -87683,7 +87728,10 @@ var TaskModal = /*#__PURE__*/function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "state", {
       modal: false,
-      name: ""
+      name: "",
+      detail: "",
+      developer: "",
+      status: ""
     });
 
     _defineProperty(_assertThisInitialized(_this), "toggle", function () {
@@ -87706,27 +87754,81 @@ var TaskModal = /*#__PURE__*/function (_Component) {
   }
 
   _createClass(TaskModal, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.getDevelopers(this.props.id);
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.toggle,
         className: "btn btn-outline-primary"
-      }, "Create New Task"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"], {
+      }, "Create New Task"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_4__["Modal"], {
         isOpen: this.state.modal,
         toggle: this.toggle
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ModalHeader"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_4__["ModalHeader"], {
         toggle: this.toggle
-      }, "Add New Task"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["ModalBody"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Form"], {
+      }, "Add New Task"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_4__["ModalBody"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_4__["Form"], {
         onSubmit: this.onSubmit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Label"], {
-        "for": "item"
-      }, "Task"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_4__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_4__["Label"], {
+        "for": "name"
+      }, "Task"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_4__["Input"], {
         type: "text",
         name: "name",
-        id: "item",
+        id: "name",
         placeholder: "Create new task",
         onChange: this.inputHandler
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_4__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_4__["Label"], {
+        "for": "detail"
+      }, "Detail"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_4__["Input"], {
+        type: "textarea",
+        name: "detail",
+        id: "detail",
+        placeholder: "Task detail",
+        onChange: this.inputHandler
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_4__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_4__["Label"], {
+        "for": "developer"
+      }, "Developer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        name: "developer",
+        id: "developer",
+        value: this.state.developer,
+        onChange: this.inputHandler,
+        className: "form-control"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "",
+        disabled: true
+      }, "--select developer--"), this.props.developers.map(function (_ref) {
+        var id = _ref.id,
+            name = _ref.name;
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: id,
+          value: id
+        }, name);
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_4__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_4__["Label"], {
+        "for": "status"
+      }, "Status"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        name: "status",
+        id: "status",
+        value: this.state.status,
+        onChange: this.inputHandler,
+        className: "form-control"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "",
+        disabled: true
+      }, "--select status--"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "to estimate"
+      }, "To Estimate"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "to Do"
+      }, "To Do"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "in progress"
+      }, "In Progress"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "testing"
+      }, "Testing"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "approval pending"
+      }, "Approval Pending"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "done"
+      }, "Done"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_4__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_4__["Button"], {
         color: "dark",
         style: {
           marginTop: "2rem"
@@ -87739,7 +87841,20 @@ var TaskModal = /*#__PURE__*/function (_Component) {
   return TaskModal;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (TaskModal);
+TaskModal.PropsTypes = {
+  isAuthenticated: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired,
+  getDevelopers: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    developers: state.developer.developers
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, {
+  getDevelopers: _actions_developerActions__WEBPACK_IMPORTED_MODULE_3__["getDevelopers"]
+})(TaskModal));
 
 /***/ }),
 
@@ -88220,6 +88335,45 @@ var initialState = {
 
 /***/ }),
 
+/***/ "./resources/js/reducers/developerReducer.js":
+/*!***************************************************!*\
+  !*** ./resources/js/reducers/developerReducer.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/types */ "./resources/js/actions/types.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var initialState = {
+  developers: [],
+  loading: false
+};
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__["GET_DEVELOPERS"]:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        developers: action.payload,
+        loading: false
+      });
+
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/reducers/errorReducer.js":
 /*!***********************************************!*\
   !*** ./resources/js/reducers/errorReducer.js ***!
@@ -88275,8 +88429,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _projectReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./projectReducer */ "./resources/js/reducers/projectReducer.js");
 /* harmony import */ var _taskReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./taskReducer */ "./resources/js/reducers/taskReducer.js");
 /* harmony import */ var _clientReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./clientReducer */ "./resources/js/reducers/clientReducer.js");
-/* harmony import */ var _errorReducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./errorReducer */ "./resources/js/reducers/errorReducer.js");
-/* harmony import */ var _authReducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./authReducer */ "./resources/js/reducers/authReducer.js");
+/* harmony import */ var _developerReducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./developerReducer */ "./resources/js/reducers/developerReducer.js");
+/* harmony import */ var _errorReducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./errorReducer */ "./resources/js/reducers/errorReducer.js");
+/* harmony import */ var _authReducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./authReducer */ "./resources/js/reducers/authReducer.js");
+
 
 
 
@@ -88287,8 +88443,9 @@ __webpack_require__.r(__webpack_exports__);
   project: _projectReducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   task: _taskReducer__WEBPACK_IMPORTED_MODULE_2__["default"],
   client: _clientReducer__WEBPACK_IMPORTED_MODULE_3__["default"],
-  error: _errorReducer__WEBPACK_IMPORTED_MODULE_4__["default"],
-  auth: _authReducer__WEBPACK_IMPORTED_MODULE_5__["default"]
+  developer: _developerReducer__WEBPACK_IMPORTED_MODULE_4__["default"],
+  error: _errorReducer__WEBPACK_IMPORTED_MODULE_5__["default"],
+  auth: _authReducer__WEBPACK_IMPORTED_MODULE_6__["default"]
 }));
 
 /***/ }),

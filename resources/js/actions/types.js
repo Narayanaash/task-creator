@@ -22,3 +22,5 @@ export const ADD_TASK = "ADD_TASK";
 export const DELETE_TASK = "DELETE_TASK";
 export const TASKS_LOADING = "TASKS_LOADING";
 export const TASK_UPLOADING = "TASK_UPLOADING";
+
+export const GET_DEVELOPERS = "GET_DEVELOPERS";

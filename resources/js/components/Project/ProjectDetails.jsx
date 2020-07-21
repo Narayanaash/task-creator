@@ -68,11 +68,11 @@ class ProjectDetails extends Component {
                             return project.name;
                         })}
                 </h1>
-                <TaskModal />
+                <TaskModal id={this.props.match.params.id} />
                 <h4 className="py-2">All Tasks</h4>
                 <div className=" status-box">
                     <div className="status-box-head">To Estimate </div>
-                    <div className="status-box-head">To Todo </div>
+                    <div className="status-box-head">To Do </div>
                     <div className="status-box-head">In Progress </div>
                     <div className="status-box-head">Testing </div>
                     <div className="status-box-head">Approval Pending</div>

@@ -4,14 +4,13 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import PropsTypes from "prop-types";
-import {getProjects } from "../actions/projectActions";
-
+import { getProjects } from "../actions/projectActions";
 
 import { ListGroup, ListGroupItem, Badge } from "reactstrap";
 
 class Dashboard extends Component {
-    componentDidMount(){
-        this.props.getProjects()
+    componentWillMount() {
+        this.props.getProjects();
     }
     render() {
         return (
@@ -38,9 +37,8 @@ class Dashboard extends Component {
     }
 }
 
-
 const mapStateToProps = state => ({
     projects: state.project.projects
 });
 
-export default withRouter(connect(mapStateToProps, {getProjects})(Dashboard));
+export default withRouter(connect(mapStateToProps, { getProjects })(Dashboard));

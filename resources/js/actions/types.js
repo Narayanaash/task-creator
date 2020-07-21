@@ -16,3 +16,9 @@ export const REGISTER_FAIL = "REGISTER_FAIL";
 export const GET_ERRORS = "GET_ERRORS";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const GET_CLIENTS = "GET_CLIENTS";
+
+export const GET_TASKS = "GET_TASKS";
+export const ADD_TASK = "ADD_TASK";
+export const DELETE_TASK = "DELETE_TASK";
+export const TASKS_LOADING = "TASKS_LOADING";
+export const TASK_UPLOADING = "TASK_UPLOADING";

@@ -2,31 +2,38 @@
     font-size: 28px;
     text-decoration: none;
 }
-.details{
-    padding:2rem;
+.details {
+    padding: 2rem;
 }
-.status-box{
+.details h1 {
+    background-color: #ececec;
+    padding: 5px 10px;
+    border-left: 3px solid green;
+    border-radius: 2px;
+    font-size: 30px;
+}
+.status-box {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.status-box-head{
+.status-box-head {
     font-size: 22px;
     color: teal;
     background-color: snow;
     border-radius: 5px;
-    border:1px dashed grey;
+    border: 1px dashed grey;
     margin-bottom: 10px;
-    width: 19%;
-
+    padding-left: 10px;
+    width: 16%;
 }
-.status-box-item{
+.status-box-item {
     height: 500px;
-    width: 19%;
+    width: 16%;
     overflow-y: auto;
     background-color: snow;
     border-radius: 5px;
-    border:1px dashed grey;
+    border: 1px dashed grey;
 }
 .status-box-item:hover {
     background-color: rgb(8, 66, 88);

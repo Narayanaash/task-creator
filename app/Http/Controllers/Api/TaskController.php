@@ -25,7 +25,7 @@ class TaskController extends Controller
                 'project_id' => $data['project_id'],
                 'detail' => $data['detail'],
                 'user_id' => $data['user_id'],
-                'status' => $data['status'],
+                'status' => strtolower($data['status']),
             ]));
         }
         

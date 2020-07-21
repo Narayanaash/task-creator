@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 import PropsTypes from "prop-types";
 import { addProject } from "../../actions/projectActions";
 import { getClients } from "../../actions/clientActions";
@@ -32,9 +32,6 @@ class ViewProject extends Component {
         };
     }
 
-
-
-
     inputHandler = e => {
         this.setState({ [e.target.name]: e.target.value });
     };
@@ -53,22 +50,33 @@ class ViewProject extends Component {
     };
 
     render() {
-        const { clients } = this.props.client;
         return (
             <div className="col-md-4 offset-md-4 mt-5 pt-5 dashboard-options">
                 <h2>All Projects</h2>
                 <ListGroup>
-                {
-                    this?.props?.projects?.map(project=>{
-                        return (
-                            <ListGroupItem>
-                                <Link style={{fontSize:'24px',display:'block'}} to={`project-details/${project.id}`}>{project.name}</Link>
-                                <span>{project.client.name}</span>
-                                <span className="ml-4">{project.user.name}</span>
-                            </ListGroupItem>
-                        )
-                    })
-                }
+                    {this.props.projects.length > 0 ? (
+                        this.props.projects.map(project => {
+                            return (
+                                <ListGroupItem key={project.id}>
+                                    <Link
+                                        style={{
+                                            fontSize: "24px",
+                                            display: "block"
+                                        }}
+                                        to={`project-details/${project.id}`}
+                                    >
+                                        {project.name}
+                                    </Link>
+                                    <span>{project.client.name}</span>
+                                    <span className="ml-4">
+                                        {project.user.name}
+                                    </span>
+                                </ListGroupItem>
+                            );
+                        })
+                    ) : (
+                        <ListGroupItem>No Projects found</ListGroupItem>
+                    )}
                 </ListGroup>
             </div>
         );
@@ -80,7 +88,7 @@ ViewProject.PropsTypes = {
     getClients: PropsTypes.bool,
     error: PropsTypes.object.isRequired,
     client: PropsTypes.func.isRequired,
-    projects:PropsTypes.func.isRequired
+    projects: PropsTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

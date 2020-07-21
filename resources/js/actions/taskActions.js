@@ -1,22 +1,22 @@
 import axios from "axios";
 import {
-    GET_PROJECTS,
-    ADD_PROJECT,
-    DELETE_PROJECT,
-    PROJECTS_LOADING,
-    PROJECT_UPLOADING
+    GET_TASKS,
+    ADD_TASK,
+    DELETE_TASK,
+    TASKS_LOADING,
+    TASK_UPLOADING
 } from "./types";
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorActions";
 
-export const getProjects = () => (dispatch, getState) => {
+export const getTasks = id => (dispatch, getState) => {
     // alert('called')
-    dispatch(setProjectLoading());
+    dispatch(setTaskLoading());
     axios
-        .get("/api/projects", tokenConfig(getState))
+        .get("/api/projects/" + id + "/tasks", tokenConfig(getState))
         .then(res =>
             dispatch({
-                type: GET_PROJECTS,
+                type: GET_TASKS,
                 payload: res.data
             })
         )
@@ -47,7 +47,6 @@ export const addProject = (project, id) => (dispatch, getState) => {
                     type: ADD_PROJECT,
                     payload: res.data
                 });
-                alert("Project added successfully");
                 axios
                     .get("/api/projects")
                     .then(res =>
@@ -82,14 +81,14 @@ export const deleteProject = id => (dispatch, getState) => {
         );
 };
 
-export const setProjectLoading = () => {
+export const setTaskLoading = () => {
     return {
-        type: PROJECTS_LOADING
+        type: TASKS_LOADING
     };
 };
 
-export const setProjectUploading = () => {
+export const setTaskUploading = () => {
     return {
-        type: PROJECT_UPLOADING
+        type: TASK_UPLOADING
     };
 };

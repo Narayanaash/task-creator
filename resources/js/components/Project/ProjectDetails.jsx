@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropsTypes from "prop-types";
-import { addProject } from "../../actions/projectActions";
+import { getTasks } from "../../actions/taskActions";
 import { getClients } from "../../actions/clientActions";
+import TaskModal from "./TaskModal";
 
 import {
     Col,
@@ -31,8 +33,9 @@ class ProjectDetails extends Component {
         };
     }
 
-
-
+    componentDidMount() {
+        this.props.getTasks(this.props.match.params.id);
+    }
 
     inputHandler = e => {
         this.setState({ [e.target.name]: e.target.value });
@@ -55,24 +58,107 @@ class ProjectDetails extends Component {
         const { clients } = this.props.client;
         return (
             <div className="details">
-                <h1>Project : Some Project</h1>
-                <button className="btn btn-outline-primary">
-                    Create New Task
-                </button>
-                <h4>All Tasks</h4>
+                <h1>
+                    Project :{" "}
+                    {this.props.projects
+                        .filter(
+                            project => project.id == this.props.match.params.id
+                        )
+                        .map(project => {
+                            return project.name;
+                        })}
+                </h1>
+                <TaskModal />
+                <h4 className="py-2">All Tasks</h4>
                 <div className=" status-box">
-                    <div className="status-box-head">In Design </div>
-                    <div className="status-box-head">In Todo </div>
+                    <div className="status-box-head">To Estimate </div>
+                    <div className="status-box-head">To Todo </div>
                     <div className="status-box-head">In Progress </div>
-                    <div className="status-box-head">In Development </div>
-                    <div className="status-box-head">Development Done</div>
+                    <div className="status-box-head">Testing </div>
+                    <div className="status-box-head">Approval Pending</div>
+                    <div className="status-box-head">Done</div>
                 </div>
                 <div className=" status-box">
-                    <div className="status-box-item"></div>
-                    <div className="status-box-item"></div>
-                    <div className="status-box-item"></div>
-                    <div className="status-box-item"></div>
-                    <div className="status-box-item"></div>
+                    <div className="status-box-item">
+                        <ListGroup>
+                            {this?.props?.tasks
+                                ?.filter(task => task.status == "to estimate")
+                                .map(task => {
+                                    return (
+                                        <ListGroupItem key={task.id}>
+                                            {task.name}
+                                        </ListGroupItem>
+                                    );
+                                })}
+                        </ListGroup>
+                    </div>
+                    <div className="status-box-item">
+                        <ListGroup>
+                            {this?.props?.tasks
+                                ?.filter(task => task.status == "to do")
+                                .map(task => {
+                                    return (
+                                        <ListGroupItem key={task.id}>
+                                            {task.name}
+                                        </ListGroupItem>
+                                    );
+                                })}
+                        </ListGroup>
+                    </div>
+                    <div className="status-box-item">
+                        <ListGroup>
+                            {this?.props?.tasks
+                                ?.filter(task => task.status == "in progress")
+                                .map(task => {
+                                    return (
+                                        <ListGroupItem key={task.id}>
+                                            {task.name}
+                                        </ListGroupItem>
+                                    );
+                                })}
+                        </ListGroup>
+                    </div>
+                    <div className="status-box-item">
+                        <ListGroup>
+                            {this?.props?.tasks
+                                ?.filter(task => task.status == "testing")
+                                .map(task => {
+                                    return (
+                                        <ListGroupItem key={task.id}>
+                                            {task.name}
+                                        </ListGroupItem>
+                                    );
+                                })}
+                        </ListGroup>
+                    </div>
+                    <div className="status-box-item">
+                        <ListGroup>
+                            {this?.props?.tasks
+                                ?.filter(
+                                    task => task.status == "approval pending"
+                                )
+                                .map(task => {
+                                    return (
+                                        <ListGroupItem key={task.id}>
+                                            {task.name}
+                                        </ListGroupItem>
+                                    );
+                                })}
+                        </ListGroup>
+                    </div>
+                    <div className="status-box-item">
+                        <ListGroup>
+                            {this?.props?.tasks
+                                ?.filter(task => task.status == "done")
+                                .map(task => {
+                                    return (
+                                        <ListGroupItem key={task.id}>
+                                            {task.name}
+                                        </ListGroupItem>
+                                    );
+                                })}
+                        </ListGroup>
+                    </div>
                 </div>
             </div>
         );
@@ -84,16 +170,18 @@ ProjectDetails.PropsTypes = {
     getClients: PropsTypes.bool,
     error: PropsTypes.object.isRequired,
     client: PropsTypes.func.isRequired,
-    projects:PropsTypes.func.isRequired
+    projects: PropsTypes.func.isRequired,
+    getTasks: PropsTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
     error: state.error,
     client: state.client,
-    projects: state.project.projects
+    projects: state.project.projects,
+    tasks: state.task.tasks
 });
 
-export default connect(mapStateToProps, { getClients, addProject })(
+export default connect(mapStateToProps, { getClients, getTasks })(
     ProjectDetails
 );
